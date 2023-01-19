@@ -20,8 +20,8 @@
      output logic [1:0] wbsel,
      output logic regwen,
      output logic [1:0] immsel,
-     output logic asel,
-     output logic bsel,
+     output logic [1:0] asel,
+     output logic [1:0] bsel,
      output logic [3:0] alusel,
      output logic mdrwrite,
      

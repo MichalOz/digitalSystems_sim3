@@ -28,8 +28,8 @@
      input logic [1:0] wbsel,
      input logic regwen,
      input logic [1:0] immsel,
-     input logic asel,
-     input logic bsel,
+     input logic [1:0] asel,
+     input logic [1:0] bsel,
      input logic [3:0] alusel,
      input logic mdrwrite,
      
