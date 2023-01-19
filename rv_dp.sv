@@ -110,7 +110,7 @@
 
  // ALU
  // ===
- logic [DPWIDTH-1:0] alu_result; 
+
  // Immediate selector
  logic [DPWIDTH-1:0] imm;
  always_comb
@@ -129,7 +129,7 @@
     alu_a = pcc;
     case (asel)
         ALUA_REG: alu_a = a;
-        ALUA_ALUOUT: alu_a = alu_result;
+        ALUA_ALUOUT: alu_a = aluout;
         ALUA_PCC: alu_a = pcc; 
     endcase
  end
@@ -152,7 +152,7 @@
  always_comb alu_bs = alu_b;
 
  // The ALU
- 
+ logic [DPWIDTH-1:0] alu_result; 
  always_comb
      case (alusel)
          ALU_ADD: alu_result = alu_a + alu_b;
