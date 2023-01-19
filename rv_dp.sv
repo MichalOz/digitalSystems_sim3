@@ -110,7 +110,7 @@
 
  // ALU
  // ===
- 
+ logic [DPWIDTH-1:0] alu_result; 
  // Immediate selector
  logic [DPWIDTH-1:0] imm;
  always_comb
@@ -125,11 +125,25 @@
 
  // ALU input A
  logic [DPWIDTH-1:0] alu_a;
- assign alu_a = (asel == ALUA_REG) ? a : pcc;
+ always_comb begin
+    alu_a = pcc;
+    case (asel)
+        ALUA_REG: alu_a = a;
+        ALUA_ALUOUT: alu_a = alu_result;
+        ALUA_PCC: alu_a = pcc; 
+    endcase
+ end
 
  // ALU input A
  logic [DPWIDTH-1:0] alu_b;
- assign alu_b = (bsel == ALUB_REG) ? b : imm;
+ always_comb begin
+    alub_b = imm;
+    case(bsel)
+        ALUB_REG: alu_b = b;
+        ALUB_F8: alu_b = 8'hffffffff;
+        ALUB_IMM: alu_b = imm;
+    endcase
+ end
 
  // For signed comparison, cast to integer. logic is by default unsigned
  integer alu_as;
@@ -138,7 +152,7 @@
  always_comb alu_bs = alu_b;
 
  // The ALU
- logic [DPWIDTH-1:0] alu_result;
+ 
  always_comb
      case (alusel)
          ALU_ADD: alu_result = alu_a + alu_b;
@@ -161,8 +175,6 @@
          aluout     <= 0;
      else
          aluout     <= alu_result;
-
-// put your code here
 
  // Memory
  // ======
