@@ -137,10 +137,10 @@
  // ALU input A
  logic [DPWIDTH-1:0] alu_b;
  always_comb begin
-    alub_b = imm;
+    alu_b = imm;
     case(bsel)
         ALUB_REG: alu_b = b;
-        ALUB_F8: alu_b = 8'hffffffff;
+        ALUB_F8: alu_b = 32'hffffffff;
         ALUB_IMM: alu_b = imm;
     endcase
  end
